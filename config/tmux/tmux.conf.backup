@@ -1,0 +1,37 @@
+unbind C-b
+set -g prefix M-f
+bind M-f send-prefix
+set -g mouse on
+set-option -g history-limit 10000
+unbind-key -T prefix %
+unbind-key -T prefix '"'
+bind-key | split-window -h
+bind-key - split-window -v
+
+bind -r h select-pane -L
+bind -r j select-pane -D
+bind -r k select-pane -U
+bind -r l select-pane -R
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+# set -g @plugin 'Nybkox/tmux-kanagawa'
+set -g @plugin 'niksingh710/minimal-tmux-status'
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'github_username/plugin_name#branch'
+# set -g @plugin 'git@github.com:user/plugin'
+# set -g @plugin 'git@bitbucket.com:user/plugin'
+
+set -g base-index 1
+set -g set-clipboard on
+set -g renumber-windows on
+# set -g status-position top
+set -g @minimal-tmux-status "top"
+set -g default-terminal "${TERM}"
+set -g pane-active-border-style "fg=magenta,bg=default"
+set -g pane-active-border-style "fg=brightblack,bg=default"
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.config/tmux/plugins/tpm/tpm'

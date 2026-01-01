@@ -21,7 +21,7 @@
     playerctl
     hypridle
     hyprlock
-    xfce.thunar
+    thunar
     rofi
     swayosd
     swww
@@ -50,7 +50,7 @@
     hyprland-qtutils
     hyprutils
     hyprsunset
-    xfce.thunar-volman
+    thunar-volman
     trash-cli
     zip
     unzip
@@ -82,11 +82,11 @@
 
       echo "[HM] Using dotfiles at: $DOTFILES"
 
-      if [ ! -d "$CONFIG_DIR" ]; then
-        echo "[HM] config/ not found, cloning repo…"
-        mkdir -p "$CONFIG_DIR"
-        ${pkgs.git}/bin/git clone https://github.com/dtto86/dotfiles.git "$CONFIG_DIR"
-      fi
+      # if [ ! -d "$CONFIG_DIR" ]; then
+      #   echo "[HM] config/ not found, cloning repo…"
+      #   mkdir -p "$CONFIG_DIR"
+      #   ${pkgs.git}/bin/git clone https://github.com/dtto86/dotfiles.git "$CONFIG_DIR"
+      # fi
 
       if [ -e "$NVIM_DST" ] && [ ! -L "$NVIM_DST" ]; then
         echo "[HM] Backing up existing ~/.config/nvim → $BACKUP_DIR"
@@ -134,7 +134,9 @@
           name = "Pravin Salgaonkar";
           email = "pravinsalg@gmail.com";
         };
-        editor = "nvim";
+        core.editor = "nvim";
+        init.defaultBranch = "main";
+        pull.rebase = false;
       };
     };
     waybar = {

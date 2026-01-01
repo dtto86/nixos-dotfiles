@@ -1,0 +1,8 @@
+
+# Export package list (without dependencies)
+pacman -Qqen > pkglist.txt
+
+# To restore
+sudo pacman -S --needed - < pkglist.txt
+
+paru -Qqm > aurlist.txt
