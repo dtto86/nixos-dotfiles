@@ -64,6 +64,9 @@
     power-profiles-daemon
     fastfetch
     statix
+    pavucontrol
+    foot
+    joplin-desktop
   ];
 
   home.activation.dotfilesSetup =

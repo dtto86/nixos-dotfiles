@@ -85,6 +85,12 @@
     git curl wget kdePackages.polkit-kde-agent-1 pulseaudio pamixer blueman gcc neovim
   ];
 
+  environment.sessionVariables = {
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "hyprland";
+    XDG_SESSION_TYPE = "wayland";
+  };
+
   security.polkit.enable = true;
 
   hardware.bluetooth = {

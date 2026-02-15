@@ -8,7 +8,7 @@
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["hyprland/window"],
     //"modules-right": ["mpd", "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state", "battery", "battery#bat2", "clock", "tray"],
-    "modules-right": ["custom/powerprofile", "mpd", "custom/pacman", "temperature", "cpu", "memory", "bluetooth", "network", "pulseaudio", "battery", "custom/weather", "tray", "custom/external-drives", "clock"],
+    "modules-right": ["custom/powerprofile", "mpd", "temperature", "cpu", "memory", "bluetooth", "network", "pulseaudio", "battery", "custom/weather", "tray", "custom/external-drives", "clock"],
     // Modules configuration
     "hyprland/workspaces": {
       "persistent-workspaces": {
@@ -198,13 +198,13 @@
         // "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     },
-    "custom/pacman": {
-        "name": "custom/updates",
-        "exec": "~/.config/waybar/scripts/check-updates.sh",
-        "interval": 300,
-        "format": "{}",
-        "tooltip": false
-    },
+    // "custom/pacman": {
+    //     "name": "custom/updates",
+    //     "exec": "~/.config/waybar/scripts/check-updates.sh",
+    //     "interval": 300,
+    //     "format": "{}",
+    //     "tooltip": false
+    // },
     "custom/weather": {
         "exec": "~/.config/waybar/scripts/weather.sh",
         "interval": 600, // update every 10 minutes
