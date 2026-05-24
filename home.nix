@@ -8,9 +8,12 @@
     file = {
       ".config/hypr".source = ./config/hypr;
       ".config/waybar".source = ./config/waybar;
-      ".config/kitty".source = ./config/kitty;
+      # ".config/kitty".source = ./config/kitty;
+      ".config/nvim".source = ./config/nvim;
     };
   };
+
+  xdg.configFile."kitty/kitty.conf".source = ./config/kitty/kitty.conf;
 
   home.packages = with pkgs; [
     google-chrome
@@ -24,7 +27,7 @@
     thunar
     rofi
     swayosd
-    swww
+    awww
     udiskie
     gnome-keyring
     nordzy-cursor-theme
@@ -67,6 +70,11 @@
     pavucontrol
     foot
     joplin-desktop
+    wev
+    libinput
+    evtest
+    acpid
+    wireplumber
   ];
 
   home.activation.dotfilesSetup =
@@ -129,6 +137,8 @@
     neovim = {
       enable = true;
       defaultEditor = true;
+      withRuby = false;
+      withPython3 = true;
     };
     git = {
       enable = true;
@@ -152,6 +162,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "hyprlang";
     settings = {
      "$mod" = "SUPER";
      bind = [

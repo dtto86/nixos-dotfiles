@@ -82,4 +82,5 @@ require("lazy").setup({
       },
     },
   },
+  lockfile = vim.fn.stdpath("state") .. "/lazy-lock.json", -- lockfile generated after running update.
 })

@@ -17,6 +17,10 @@
     overlays = [
       inputs.neovim-nightly-overlay.overlays.default
     ];
+    pkgs = import nixpkgs {
+      inherit system overlays;
+      config.allowUnfree = true;
+    };
   in {
     nixosConfigurations.my-pc = nixpkgs.lib.nixosSystem {
       inherit system;
@@ -44,6 +48,18 @@
           };
         }
       ];
+    };
+    devShells.${system}.default = pkgs.mkShell {
+      packages = with pkgs; [
+        nodejs_24
+	bubblewrap
+      ];
+      shellHook = ''
+        export NPM_CONFIG_PREFIX = "$HOME/.npm-global"
+	export npm_config_prefix = "$HOME/.npm-global"
+	export PATH = "$HOME/.npm-global/bin:$PATH"
+	mkdir -p "$HOME/.npm-global"
+      '';
     };
   };
 }

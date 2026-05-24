@@ -7,6 +7,7 @@
     ];
 
   boot = {
+    kernelModules = [ "thinkpad_acpi" ];
     loader = {
       systemd-boot = {
         enable = true;
@@ -68,6 +69,36 @@
     upower = {
       enable = true;
     };
+    libinput = {
+      enable = true;
+    };
+    acpid = {
+      enable = true;
+      handlers.micmute = {
+        event = "button/micmute.*";
+        action = ''
+          export XDG_RUNTIME_DIR=/run/user/1000
+          # ${pkgs.swayosd}/bin/swayosd-client --input-volume mute-toggle
+          ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+
+          # runuser -u pravin -- env XDG_RUNTIME_DIR=/run/user/1000 WAYLAND_DISPLAY=wayland-1 ${pkgs.swayosd}/bin/swayosd-client --input-volume mute-toggle
+          ${pkgs.systemd}/bin/runuser -u pravin -- \
+            ${pkgs.systemd}/bin/systemd-run --user \
+            ${pkgs.swayosd}/bin/swayosd-client --input-volume mute-toggle
+
+          STATE=$(${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -o MUTED)
+
+          if [ "$STATE" = "MUTED" ]; then
+            # ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 0
+            echo 0 > /sys/class/leds/platform::micmute/brightness
+          else
+            # ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1
+            echo 1 > /sys/class/leds/platform::micmute/brightness
+          fi
+
+        '';
+      };
+    };
   };
 
   programs = {
@@ -105,6 +136,8 @@
       };
     };
   };
+
+  hardware.enableAllFirmware = true;
 
   nix.gc = {
     automatic = true;
