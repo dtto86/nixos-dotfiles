@@ -9,13 +9,23 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
+    quickshell = {
+      url = "github:outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    noctalia-shell = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, quickshell, noctalia-shell, ... }@inputs:
   let
     system = "x86_64-linux";
     overlays = [
       inputs.neovim-nightly-overlay.overlays.default
+      quickshell.overlays.default
     ];
     pkgs = import nixpkgs {
       inherit system overlays;
@@ -44,6 +54,7 @@
             backupFileExtension = "backup";
             extraSpecialArgs = {
                 flakePath = "/home/pravin/nixos-dotfiles";
+                inherit inputs;
             };
           };
         }

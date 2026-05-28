@@ -41,7 +41,14 @@
     };
     displayManager = {
       gdm = {
-        enable = true;
+        enable = false;
+      };
+    };
+    greetd = {
+      enable = true;
+      settings.default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd start-hyprland";
+        user = "greeter";
       };
     };
     pipewire = {
@@ -113,13 +120,36 @@
   };
 
   environment.systemPackages = with pkgs; [
-    git curl wget kdePackages.polkit-kde-agent-1 pulseaudio pamixer blueman gcc neovim
+    git
+    curl
+    wget
+    kdePackages.polkit-kde-agent-1
+    pulseaudio
+    pamixer
+    blueman
+    gcc
+    neovim
+    jq
+    grim
+    slurp
+    wl-clipboard
+    playerctl
+    brightnessctl
+    networkmanagerapplet
   ];
 
   environment.sessionVariables = {
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_DESKTOP = "hyprland";
     XDG_SESSION_TYPE = "wayland";
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-hyprland
+    ];
   };
 
   security.polkit.enable = true;

@@ -1,4 +1,4 @@
-{ config, pkgs, flakePath, ... }:
+{ config, pkgs, flakePath, inputs, ... }:
 
 {
   home = {
@@ -10,6 +10,7 @@
       ".config/waybar".source = ./config/waybar;
       # ".config/kitty".source = ./config/kitty;
       ".config/nvim".source = ./config/nvim;
+      ".config/noctalia-shell".source = inputs.noctalia-shell;
     };
   };
 
@@ -75,6 +76,8 @@
     evtest
     acpid
     wireplumber
+    quickshell
+    inputs.noctalia-shell.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   home.activation.dotfilesSetup =
@@ -152,9 +155,9 @@
         pull.rebase = false;
       };
     };
-    waybar = {
-      enable = true;
-    };
+    # waybar = {
+      # enable = true;
+    # };
     tmux = {
       enable = true;
     };
