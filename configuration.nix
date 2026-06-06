@@ -106,6 +106,9 @@
         '';
       };
     };
+    gnome.gnome-keyring = {
+      enable = true;
+    };
   };
 
   programs = {
@@ -152,7 +155,16 @@
     ];
   };
 
-  security.polkit.enable = true;
+  # security.polkit.enable = true;
+
+  security = {
+    polkit = {
+      enable = true;
+    };
+    pam = {
+      services.greetd.enableGnomeKeyring = true;
+    };
+  };
 
   hardware.bluetooth = {
     enable = true;
