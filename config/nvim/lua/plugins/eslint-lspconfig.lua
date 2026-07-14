@@ -38,7 +38,6 @@ return {
             format = auto_format,
             nodePath = (function()
               local Path = require("plenary.path")
-              -- local util = require("lspconfig.util")
 
               local fname = vim.api.nvim_buf_get_name(0)
               local dir = vim.fn.fnamemodify(fname, ":p:h")
@@ -46,19 +45,13 @@ return {
 
               while current.filename ~= current:parent().filename do
                 if current:joinpath("node_modules/eslint"):is_dir() then
-                  -- print("Found node_modules in: " .. current:absolute())
-                  -- return current:absolute()
                   return current:joinpath("node_modules"):absolute()
                 end
                 current = current:parent()
               end
 
-              -- print("No node_modules found, using default path")
-              -- return vim.fn.getcwd() -- fallback to CWD
-              -- return "/home/pravin/.nvm/versions/node/v20.18.0/lib/node_modules/eslint/"
-              -- return "/home/pravin/.nvm/versions/node/v20.18.0/lib/node_modules"
-              return "/home/pravin/.nvm/versions/node/v22.17.0/lib/node_modules"
-              -- return "/home/pravin/.nvm/versions/node/v20.18.0/bin"
+              -- fallback: resolve global node_modules from the active node binary
+              return vim.fn.trim(vim.fn.system("npm root -g 2>/dev/null"))
             end)(),
           },
           -- root_dir = function(fname)
@@ -90,24 +83,10 @@ return {
             on_dir(project_root)
           end,
           on_attach = function(client, bufnr)
-            -- print("on_attach called for eslint")
-            -- if client.config.on_attach then
-            --   client.config.on_attach(client, bufnr)
-            -- end
-
-            -- vim.api.nvim_buf_create_user_command(0, 'LspEslintFixAll', function()
-            --   client:request_sync('workspace/executeCommand', {
-            --     command = 'eslint.applyAllFixes',
-            --     arguments = {
-            --       {
-            --         uri = vim.uri_from_bufnr(bufnr),
-            --         version = vim.lsp.util.buf_versions[bufnr],
-            --       },
-            --     },
-            --   }, nil, bufnr)
-            -- end, {})
+            local group = vim.api.nvim_create_augroup("EslintFormat_" .. bufnr, { clear = true })
             vim.api.nvim_create_autocmd("BufWritePre", {
-              pattern = "*",
+              group = group,
+              buffer = bufnr,
               callback = function(args)
                 if auto_format then
                   local buf = args.buf

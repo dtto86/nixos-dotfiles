@@ -24,7 +24,8 @@ return {
           },
           -- lazy-load schemastore when needed
           before_init = function(_, new_config)
-            print("in on_new_config for yamlls")
+            new_config.settings = new_config.settings or {}
+            new_config.settings.yaml = new_config.settings.yaml or {}
             new_config.settings.yaml.schemas = vim.tbl_deep_extend(
               "force",
               new_config.settings.yaml.schemas or {},

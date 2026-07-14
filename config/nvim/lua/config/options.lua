@@ -13,7 +13,7 @@ global.autoformat = false
 global.lazyvim_eslint_auto_format = true
 -- global.lazyvim_prettier_needs_config = true
 
-opt.eol = false -- Don't fix end of line on save
+opt.fixendofline = true -- Add trailing newline on save if missing; preserve it if present
 
 api.nvim_set_hl(0, "CopilotSuggestion", { link = "Comment", default = true })
 

@@ -95,9 +95,9 @@ return {
             protocol = "inspector",
             console = "integratedTerminal",
             internalConsoleOptions = "neverOpen",
-            skipFiles = { find_workspace_folder() .. "/node_modules/**/*.js" },
+            skipFiles = { "${workspaceFolder}/node_modules/**/*.js" },
             resolveSourceMapLocations = {
-              find_workspace_folder() .. "/**",
+              "${workspaceFolder}/**",
               "!**/node_modules/**",
             },
           },
@@ -108,20 +108,14 @@ return {
             runtimeExecutable = "npm",
             runtimeArgs = { "run", "start" }, -- or whatever script
             env = { NODE_OPTIONS = "--inspect" },
-            -- rootPath = "${workspaceFolder}/modules/risks/ui",
-            -- cwd = "${workspaceFolder}/modules/risks/ui",
             rootPath = find_workspace_folder,
             cwd = find_workspace_folder,
             protocol = "inspector",
             console = "integratedTerminal",
             internalConsoleOptions = "neverOpen",
             skipFiles = { "${workspaceFolder}/node_modules/**/*.js" },
-            -- resolveSourceMapLocations = {
-            --   "${workspaceFolder}/**",
-            --   "!**/node_modules/**",
-            -- },
             resolveSourceMapLocations = {
-              find_workspace_folder() .. "/**",
+              "${workspaceFolder}/**",
               "!**/node_modules/**",
             },
           },
