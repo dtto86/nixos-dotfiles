@@ -3,6 +3,7 @@
 {
   imports = [
     ./hyprland
+    # ./niri
     ./programs/git.nix
     ./programs/kitty.nix
     ./programs/rofi.nix
@@ -37,6 +38,8 @@
     "nvim".source = ../config/nvim;
     # "noctalia-shell".source = inputs.noctalia-shell;
     "noctalia".source = ../config/noctalia;
+    # "niri/config.kdl".source = ../config/niri/config.kdl;
+    "niri".source = ../config/niri;
   };
 
   # xdg.configFile."kitty/kitty.conf".source = ./config/kitty/kitty.conf;
@@ -102,7 +105,11 @@
     acpid
     wireplumber
     quickshell
-    inputs.noctalia-shell.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.noctalia-shell.packages.${pkgs.system}.default
+    gemini-cli
+    opencode
+    ollama
+    claude-code
   ];
 
   # home.activation.dotfilesSetup =

@@ -1,0 +1,6 @@
+include "monitors.kdl"
+include "input.kdl"
+include "appearance.kdl"
+include "startup.kdl"
+include "binds.kdl"
+

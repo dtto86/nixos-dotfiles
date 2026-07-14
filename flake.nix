@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     quickshell = {
       url = "github:outfoxxed/quickshell";
@@ -18,14 +18,16 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    claude-code-nix.url = "github:sadjow/claude-code-nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, quickshell, noctalia-shell, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, quickshell, noctalia-shell, claude-code-nix, ... }@inputs:
   let
     system = "x86_64-linux";
     overlays = [
-      inputs.neovim-nightly-overlay.overlays.default
+      # inputs.neovim-nightly-overlay.overlays.default
       quickshell.overlays.default
+      claude-code-nix.overlays.default
     ];
     pkgs = import nixpkgs {
       inherit system overlays;

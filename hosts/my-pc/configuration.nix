@@ -8,10 +8,12 @@
       ../../modules/system/audio.nix
       ../../modules/system/bluetooth.nix
       ../../modules/system/desktop.nix
-      ../../modules/system/hyprland.nix
+      # ../../modules/system/hyprland.nix
       ../../modules/system/packages.nix
       ../../modules/system/power.nix
+      ../../modules/system/niri.nix
       ../../modules/system/zsh.nix
+      ../../modules/system/micmute-led.nix
     ];
 
   boot = {
@@ -55,7 +57,9 @@
     greetd = {
       enable = true;
       settings.default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd start-hyprland";
+        # command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd start-hyprland";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time";
+
         user = "greeter";
       };
     };
@@ -117,6 +121,9 @@
     gnome.gnome-keyring = {
       enable = true;
     };
+    # udev.extraRules = ''
+    #   SUBSYSTEM=="leds", KERNEL=="platform::micmute", MODE="0664", GROUP="user"
+    # '';
   };
 
   # programs = {
@@ -149,11 +156,11 @@
   #   networkmanagerapplet
   # ];
 
-  environment.sessionVariables = {
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_DESKTOP = "hyprland";
-    XDG_SESSION_TYPE = "wayland";
-  };
+  # environment.sessionVariables = {
+  #   XDG_CURRENT_DESKTOP = "Hyprland";
+  #   XDG_SESSION_DESKTOP = "hyprland";
+  #   XDG_SESSION_TYPE = "wayland";
+  # };
 
   # xdg.portal = {
   #   enable = true;

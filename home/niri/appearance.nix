@@ -1,0 +1,8 @@
+{
+  layout = {
+    gaps = 5;
+  };
+
+  prefer-no-csd = true;
+}
+

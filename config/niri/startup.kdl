@@ -1,0 +1,4 @@
+spawn-at-startup "udiskie"
+spawn-at-startup "hypridle"
+spawn-at-startup "noctalia"
+

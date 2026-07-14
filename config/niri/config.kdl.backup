@@ -1,0 +1,131 @@
+prefer-no-csd
+
+input {
+    keyboard {
+      repeat-delay 200
+      repeat-rate 35
+      xkb {
+        layout "us"
+      }
+    }
+
+    touchpad {
+      tap
+      natural-scroll
+    }
+    trackpoint {
+      natural-scroll
+    }
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+layout {
+    gaps 5
+
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+    focus-ring {
+        width 1.5
+
+        active-color "#7fc8ff"
+
+        inactive-color "#505050"
+    }
+
+    border {
+        off
+
+        width 1.5
+        active-color "#ffc87f"
+        inactive-color "#505050"
+        urgent-color "#9b0000"
+
+    }
+
+    shadow {
+        // on
+
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#0007"
+    }
+
+    struts {
+    }
+}
+
+output "eDP-1" {
+    mode "1920x1200@60"
+    scale 1.0
+}
+
+output "HDMI-A-1" {
+    mode "1920x1080@60"
+    position x=1920 y=0
+    scale 1.0
+}
+
+spawn-at-startup "noctalia"
+spawn-at-startup "udiskie"
+spawn-at-startup "hypridle"
+
+binds {
+  Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+Return { spawn "kitty"; }
+    Mod+R { spawn "rofi" "-show" "drun"; }
+    Mod+E { spawn "thunar"; }
+    Mod+B { spawn "google-chrome-stable"; }
+    Mod+O repeat=false { toggle-overview; }
+    Mod+Q { close-window; }
+
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+
+    Mod+Left  { focus-column-left; }
+    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-window-up; }
+    Mod+Right { focus-column-right; }
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
+    Mod+L     { focus-column-right; }
+
+    Mod+Ctrl+Left  { move-column-left; }
+    Mod+Ctrl+Down  { move-window-down; }
+    Mod+Ctrl+Up    { move-window-up; }
+    Mod+Ctrl+Right { move-column-right; }
+    Mod+Ctrl+H     { move-column-left; }
+    Mod+Ctrl+J     { move-window-down; }
+    Mod+Ctrl+K     { move-window-up; }
+    Mod+Ctrl+L     { move-column-right; }
+
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+}
+
