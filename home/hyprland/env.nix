@@ -1,12 +1,10 @@
 {
   env = [
-    "QT_QPA_PLATFORM,wayland"
-    "QT_QPA_PLATFORMTHEME,qt6ct"
-    "GTK_THEME,Adwaita-dark"
+    { _args = [ "QT_QPA_PLATFORM" "wayland" ]; }
+    { _args = [ "QT_QPA_PLATFORMTHEME" "qt6ct" ]; }
 
-    "XCURSOR_SIZE,24"
-    "HYPRCURSOR_SIZE,24"
-    "HYPRCURSOR_THEME,Nordzy-hyprcursors"
+    { _args = [ "XCURSOR_SIZE" "24" ]; }
+    { _args = [ "HYPRCURSOR_SIZE" "24" ]; }
+    { _args = [ "HYPRCURSOR_THEME" "Nordzy-hyprcursors" ]; }
   ];
 }
-

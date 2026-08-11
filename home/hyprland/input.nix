@@ -1,21 +1,26 @@
 {
-  input = {
-    kb_layout = "us";
+  config = {
+    input = {
+      kb_layout = "us";
 
-    follow_mouse = 1;
+      follow_mouse = 1;
 
-    sensitivity = 0;
+      sensitivity = 0;
 
-    mouse_refocus = false;
+      mouse_refocus = false;
 
-    touchpad = {
-      natural_scroll = true;
-      scroll_factor = 1;
+      touchpad = {
+        natural_scroll = true;
+        scroll_factor = 0.3;
+      };
     };
   };
 
   gesture = [
-    "3, horizontal, workspace"
+    {
+      fingers = 3;
+      direction = "horizontal";
+      action = "workspace";
+    }
   ];
 }
-

@@ -14,6 +14,9 @@
       ../../modules/system/niri.nix
       ../../modules/system/zsh.nix
       ../../modules/system/micmute-led.nix
+      ../../modules/system/virtualisation.nix
+      ../../modules/system/nix-ld.nix
+      ../../modules/system/docker.nix
     ];
 
   boot = {
@@ -41,7 +44,7 @@
 
   users.users.pravin = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "libvirtd" "docker" ];
     shell = pkgs.zsh;
   };
 
@@ -203,6 +206,13 @@
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Prebuilt noctalia-shell/quickshell binaries, avoids compiling them
+  # from source on every rebuild (see flake.nix input comment).
+  nix.settings.extra-substituters = [ "https://noctalia.cachix.org" ];
+  nix.settings.extra-trusted-public-keys = [
+    "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+  ];
  
   system.stateVersion = "25.11";
 }

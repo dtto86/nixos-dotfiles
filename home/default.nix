@@ -10,22 +10,29 @@
     ./programs/zsh.nix
     ./programs/neovim.nix
     ./programs/tmux.nix
+    ./programs/herdr.nix
     ./programs/starship.nix
+    ./programs/yazi.nix
+    ./programs/noctalia.nix
+    ./programs/gtk.nix
     ./services/hypridle.nix
     ./services/hyprlock.nix
+    ./services/wallpaper-cloud.nix
   ];
   home = {
     username = "pravin";
     homeDirectory = "/home/pravin";
     stateVersion = "25.11";
-    # file = {
-    #   # ".config/hypr".source = ./config/hypr;
-    #   # ".config/waybar".source = ./config/waybar;
-    #   # ".config/kitty".source = ./config/kitty;
-    #   # ".config/nvim".source = ./config/nvim;
-    #   # ".config/noctalia-shell".source = inputs.noctalia-shell;
-    # };
+    file = {
+      "screenshots/.keep".text = "";
+      # ".config/hypr".source = ./config/hypr;
+      # ".config/waybar".source = ./config/waybar;
+      # ".config/kitty".source = ./config/kitty;
+      # ".config/nvim".source = ./config/nvim;
+      # ".config/noctalia-shell".source = inputs.noctalia-shell;
+    };
     pointerCursor = {
+      enable = true;
       gtk.enable = true;
       x11.enable = true;
       package = pkgs.nordzy-cursor-theme;
@@ -36,8 +43,6 @@
   
   xdg.configFile = {
     "nvim".source = ../config/nvim;
-    # "noctalia-shell".source = inputs.noctalia-shell;
-    "noctalia".source = ../config/noctalia;
     # "niri/config.kdl".source = ../config/niri/config.kdl;
     "niri".source = ../config/niri;
   };
@@ -71,11 +76,14 @@
     cliphist
     ripgrep
     fd
+    ffmpegthumbnailer
+    poppler
+    p7zip
+    jq
     # starship
     alsa-utils
     bluez
     bluez-tools
-    docker
     fwupd
     fzf
     gnome-calculator
@@ -96,6 +104,7 @@
     power-profiles-daemon
     fastfetch
     statix
+    nil
     pavucontrol
     foot
     joplin-desktop
@@ -105,7 +114,6 @@
     acpid
     wireplumber
     quickshell
-    inputs.noctalia-shell.packages.${pkgs.system}.default
     gemini-cli
     opencode
     ollama
@@ -197,7 +205,8 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    configType = "hyprlang";
+    # configType is set in ./hyprland/default.nix (lua, since Hyprland
+    # 0.55+ deprecated hyprlang) — don't redeclare it here, it'll conflict.
     systemd.enable = true;
     xwayland.enable = true;
     # settings = {

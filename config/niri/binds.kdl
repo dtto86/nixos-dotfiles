@@ -1,16 +1,35 @@
 binds {
   Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Return { spawn "kitty"; }
+    Mod+Shift+Return { spawn "kitty" "--class" "kittyFloating"; }
     Mod+R { spawn "rofi" "-show" "drun"; }
     Mod+E { spawn "thunar"; }
     Mod+B { spawn "google-chrome-stable"; }
+    Mod+N { spawn "obsidian"; }
+    Mod+Shift+L { spawn "loginctl" "lock-session"; }
+    Mod+V { spawn-sh "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
     Mod+O repeat=false { toggle-overview; }
     Mod+Q { close-window; }
+    Mod+F { fullscreen-window; }
+    Mod+W { toggle-window-floating; }
+    Mod+M { quit; }
+
+    // hyprshot talks to hyprctl and doesn't work under niri; niri's own
+    // screenshot actions are the equivalent (window vs. interactive select).
+    Print { screenshot-window; }
+    XF86SelectiveScreenshot { screenshot; }
+
+    // Mod+drag move / Mod+right-drag resize are niri's built-in mouse
+    // gestures, equivalent to hyprland's bindm entries.
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "s" "10%+"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "s" "10%-"; }
+    XF86AudioNext  allow-when-locked=true { spawn "playerctl" "next"; }
+    XF86AudioPause allow-when-locked=true { spawn "playerctl" "play-pause"; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
@@ -39,6 +58,7 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
+    Mod+0 { focus-workspace 10; }
     Mod+Shift+1 { move-column-to-workspace 1; }
     Mod+Shift+2 { move-column-to-workspace 2; }
     Mod+Shift+3 { move-column-to-workspace 3; }
@@ -48,5 +68,15 @@ binds {
     Mod+Shift+7 { move-column-to-workspace 7; }
     Mod+Shift+8 { move-column-to-workspace 8; }
     Mod+Shift+9 { move-column-to-workspace 9; }
+    Mod+Shift+0 { move-column-to-workspace 10; }
+
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
+
+    // Hyprland's special:magic scratch workspace toggles a floating
+    // overlay workspace; niri has no direct equivalent, so this uses a
+    // named workspace as the closest approximation.
+    Mod+S       { focus-workspace "magic"; }
+    Mod+Shift+S { move-column-to-workspace "magic"; }
 }
 
