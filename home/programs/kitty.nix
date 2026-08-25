@@ -8,7 +8,7 @@
       confirm_os_window_close = 0;
       enable_audio_bell = false;
       fontFamily = "JetBrainsMonoNL Nerd Font";
-      fontSize = 12.5;
+      fontSize = 15.0;
       boldFont = "auto";
       italicFont = "auto";
       boldItalicFont = "auto";

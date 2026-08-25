@@ -11,3 +11,19 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     require("lint").try_lint()
   end,
 })
+
+-- Auto-restore the per-directory session saved by persistence.nvim (bundled with
+-- LazyVim) when nvim is opened with no args (`nvim`) or just a directory (`nvim .`).
+-- A single non-directory arg (e.g. `nvim file.txt`, or `git commit`'s editor
+-- invocation) is left alone and opens exactly what was requested.
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    local argc = vim.fn.argc()
+    local no_args = argc == 0
+    local single_dir_arg = argc == 1 and vim.fn.isdirectory(vim.fn.argv(0)) == 1
+    if no_args or single_dir_arg then
+      require("persistence").load()
+    end
+  end,
+  nested = true,
+})

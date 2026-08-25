@@ -9,6 +9,8 @@
     ./programs/rofi.nix
     ./programs/zsh.nix
     ./programs/neovim.nix
+    ./programs/zed.nix
+    ./programs/vscode.nix
     ./programs/tmux.nix
     ./programs/herdr.nix
     ./programs/starship.nix
@@ -114,7 +116,6 @@
     acpid
     wireplumber
     quickshell
-    gemini-cli
     opencode
     ollama
     claude-code
