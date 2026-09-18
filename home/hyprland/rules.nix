@@ -12,8 +12,8 @@
   # ];
   window_rule = [
     {
-      name = "float-kitty-floating";
-      match.class = "^(kittyFloating)$";
+      name = "float-wezterm-floating";
+      match.class = "^(weztermFloating)$";
       float = true;
     }
     {

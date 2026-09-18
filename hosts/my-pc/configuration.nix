@@ -208,9 +208,17 @@
 
   # Prebuilt noctalia-shell/quickshell binaries, avoids compiling them
   # from source on every rebuild (see flake.nix input comment).
-  nix.settings.extra-substituters = [ "https://noctalia.cachix.org" ];
+  # hyprland.cachix.org likewise avoids compiling Hyprland itself from
+  # source on every rebuild: the `hyprland` input tracks the git repo
+  # directly (see flake.nix input comment), so it's never built by Hydra
+  # / cached on cache.nixos.org.
+  nix.settings.extra-substituters = [
+    "https://noctalia.cachix.org"
+    "https://hyprland.cachix.org"
+  ];
   nix.settings.extra-trusted-public-keys = [
     "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+    "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
   ];
  
   system.stateVersion = "25.11";

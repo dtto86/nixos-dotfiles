@@ -2,7 +2,7 @@
 let
   mainMod = "SUPER";
   # Set programs that you use
-  terminal = "kitty";
+  terminal = "wezterm";
   fileManager = "thunar";
   menu = "rofi -show drun";
   browser = "google-chrome-stable";
@@ -17,7 +17,7 @@ in
 {
   bind = [
     (mkBind "${mainMod} + RETURN" (exec terminal))
-    (mkBind "${mainMod} + SHIFT + RETURN" (exec "${terminal} --class kittyFloating"))
+    (mkBind "${mainMod} + SHIFT + RETURN" (exec "${terminal} start --class weztermFloating"))
     (mkBind "${mainMod} + Q" (inline "hl.dsp.window.close()"))
     (mkBind "${mainMod} + F" (inline "hl.dsp.window.fullscreen({ mode = \"fullscreen\", action = \"toggle\" })"))
     # withUWSM is enabled system-wide; the wiki recommends `uwsm stop` over the

@@ -9,6 +9,11 @@
 
   security.polkit.enable = true;
 
+  # hyprlock is wired up via Home Manager, which doesn't set up its PAM stack;
+  # without this hypridle/hyprlock log "Pam module /etc/pam.d/hyprlock does not
+  # exist! Falling back to /etc/pam.d/su" and auth goes through the wrong stack.
+  security.pam.services.hyprlock = { };
+
   services.libinput.enable = true;
 
   # Thunar thumbnails: tumbler generates them, gvfs backs the trash/mount

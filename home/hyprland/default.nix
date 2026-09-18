@@ -28,7 +28,7 @@ in
       env
       execs
       input
-      # rules
+      rules
       extraConfigs
     ];
   };

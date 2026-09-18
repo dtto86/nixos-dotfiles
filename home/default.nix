@@ -5,7 +5,6 @@
     ./hyprland
     # ./niri
     ./programs/git.nix
-    ./programs/kitty.nix
     ./programs/rofi.nix
     ./programs/zsh.nix
     ./programs/neovim.nix
@@ -47,6 +46,7 @@
     "nvim".source = ../config/nvim;
     # "niri/config.kdl".source = ../config/niri/config.kdl;
     "niri".source = ../config/niri;
+    "wezterm".source = ../config/wezterm;
   };
 
   # xdg.configFile."kitty/kitty.conf".source = ./config/kitty/kitty.conf;
@@ -119,6 +119,11 @@
     opencode
     ollama
     claude-code
+    ghostscript
+    tectonic
+    mermaid-cli
+    lazygit
+    wezterm
   ];
 
   # home.activation.dotfilesSetup =

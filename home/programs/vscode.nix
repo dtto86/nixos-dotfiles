@@ -9,7 +9,7 @@
         jnoortheen.nix-ide
       ];
       userSettings = {
-        "workbench.colorTheme" = "Tokyo Night Moon";
+        "workbench.colorTheme" = "Tokyo Night Storm";
         "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace'";
         "editor.fontSize" = 14;
         "editor.formatOnSave" = true;
@@ -19,6 +19,14 @@
         "telemetry.telemetryLevel" = "off";
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+        # show suggestions automatically while typing, not just on Ctrl+Space
+        "editor.quickSuggestions" = {
+          "other" = true;
+          "comments" = true;
+          "strings" = true;
+        };
+        "editor.suggestOnTriggerCharacters" = true;
+        "editor.quickSuggestionsDelay" = 10;
       };
     };
   };
