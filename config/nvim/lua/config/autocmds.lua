@@ -197,6 +197,29 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
     if no_args or (argc == 1 and is_dir) then
       require("persistence").load()
+      -- Buffers brought back by `:source session` are loaded but end up with an
+      -- empty 'filetype', and every language server attaches by filetype — so
+      -- after `nvim .` none of vtsls/eslint/tailwind/etc. ever started for the
+      -- restored files (only filetype-agnostic Copilot did), which is why
+      -- completion couldn't offer symbols from other files. Detect them again
+      -- once the session has finished loading; this fires FileType, which also
+      -- (re)starts treesitter highlighting and LSP attach.
+      vim.schedule(function()
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          local name = vim.api.nvim_buf_get_name(buf)
+          if
+            vim.api.nvim_buf_is_loaded(buf)
+            and vim.bo[buf].buftype == ""
+            and vim.bo[buf].filetype == ""
+            and name ~= ""
+            and vim.fn.filereadable(name) == 1
+          then
+            vim.api.nvim_buf_call(buf, function()
+              vim.cmd("filetype detect")
+            end)
+          end
+        end
+      end)
     end
     if is_dir then
       require("neo-tree.command").execute({ dir = vim.uv.cwd() })
