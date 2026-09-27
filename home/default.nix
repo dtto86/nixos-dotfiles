@@ -7,6 +7,7 @@
     ./programs/git.nix
     ./programs/rofi.nix
     ./programs/zsh.nix
+    ./programs/direnv.nix
     ./programs/neovim.nix
     ./programs/zed.nix
     ./programs/vscode.nix
@@ -53,6 +54,7 @@
 
   home.packages = with pkgs; [
     google-chrome
+    tor-browser
     obsidian
     # mako
     wl-clipboard
@@ -124,6 +126,7 @@
     mermaid-cli
     lazygit
     wezterm
+    devenv
   ];
 
   # home.activation.dotfilesSetup =
