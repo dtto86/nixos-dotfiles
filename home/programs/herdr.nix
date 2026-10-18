@@ -5,6 +5,10 @@
     enable = true;
 
     settings = {
+      # herdr tries to write this into config.toml after first-run onboarding,
+      # which fails because Home Manager makes that file a read-only store symlink.
+      onboarding = false;
+
       keys = {
         # Mirror the tmux prefix set in ./tmux.nix (M-f).
         prefix = "alt+f";

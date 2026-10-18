@@ -6,7 +6,7 @@
 
     # package = pkgs.rofi;
 
-    font = "JetBrains Mono NL 12";
+    settings.font = "JetBrains Mono NL 12";
     theme = ../../config/rofi/simple-tokyonight.rasi;
   };
 }
