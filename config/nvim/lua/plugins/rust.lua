@@ -8,8 +8,33 @@
 -- No Rust toolchain (cargo/rustc/rustup) is installed by this config on purpose —
 -- this config is meant to be portable across machines, and the user manages
 -- cargo/rustc themselves per-project (flake/devenv). Only rust-analyzer and
--- codelldb are provided here, both Mason-managed (not tied to any toolchain) and
--- found on $PATH the same way on any machine.
+-- codelldb are provided here, both Mason-managed (not tied to any toolchain).
+-- The Mason rust-analyzer is only a fallback: when the project's toolchain ships its
+-- own (rustup/devenv `rust-analyzer` component), that one is preferred so it matches
+-- the project's rustc. Mason prepends its bin dir to $PATH, so it's skipped explicitly.
+local function rust_analyzer_cmd()
+  local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+  for _, dir in ipairs(vim.split(vim.env.PATH or "", ":", { trimempty = true })) do
+    local exe = dir .. "/rust-analyzer"
+    if dir ~= mason_bin and vim.fn.executable(exe) == 1 then
+      -- rustup puts a rust-analyzer proxy next to itself even when the component isn't
+      -- installed (it then just errors), so ask rustup for the real binary and skip the
+      -- proxy if there's none. The timeout guards against rustup auto-installing a
+      -- toolchain from rust-toolchain.toml.
+      local rustup = dir .. "/rustup"
+      if vim.fn.executable(rustup) == 0 then
+        return { exe }
+      end
+      local res = vim.system({ rustup, "which", "rust-analyzer" }, { text = true }):wait(5000)
+      local real = vim.trim(res.stdout or "")
+      if res.code == 0 and vim.fn.executable(real) == 1 then
+        return { real }
+      end
+    end
+  end
+  return { "rust-analyzer" }
+end
+
 return {
   {
     "mrcjkb/rustaceanvim",
@@ -25,6 +50,7 @@ return {
           hover_actions = { auto_focus = true },
         },
         server = {
+          cmd = rust_analyzer_cmd,
           default_settings = {
             ["rust-analyzer"] = {
               check = { command = "clippy" },

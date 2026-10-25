@@ -53,20 +53,25 @@ return {
   },
   {
     "petertriho/nvim-scrollbar",
+    -- v2 isn't on `main` yet (it lands there 2026-11-16); pin `refactor/v2`
+    -- to get it now. Drop this `branch` line once v2 replaces main upstream.
+    branch = "refactor/v2",
+    -- v2 config (opts shape changed, see migration guide at
+    -- https://github.com/petertriho/nvim-scrollbar/blob/refactor/v2/docs/migration.md):
+    -- `handlers = { gitsigns = true }` is now `providers = { gitsigns = true }`
+    -- and no longer needs a separate require("scrollbar.handlers.gitsigns").setup()
+    -- call; mark `color` is now a `highlight = { fg = ... }` table. GitDelete's
+    -- old empty text ("") isn't valid in v2 (marks need positive display width),
+    -- so it uses v2's own default glyph instead.
     event = "BufReadPre",
     dependencies = { "lewis6991/gitsigns.nvim" },
     opts = {
-      show = true,
-      handle = { text = "" },
+      providers = { gitsigns = true },
       marks = {
-        GitAdd = { text = "│", color = "#587c0c" },
-        GitChange = { text = "│", color = "#d7ba7d" },
-        GitDelete = { text = "", color = "#f14c4c" },
+        GitAdd = { text = "│", highlight = { fg = "#587c0c" } },
+        GitChange = { text = "│", highlight = { fg = "#d7ba7d" } },
+        GitDelete = { text = "▁", highlight = { fg = "#f14c4c" } },
       },
     },
-    config = function(_, opts)
-      require("scrollbar").setup(opts)
-      require("scrollbar.handlers.gitsigns").setup()
-    end,
   },
 }
